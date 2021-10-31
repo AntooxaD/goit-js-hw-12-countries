@@ -34,7 +34,7 @@ function renderCountryCard(country) {
     if (country.length === 1) {
         renderCountry(...country)
     }
-    else (country.length > 1 && country.length <=10)
+    else (country.length > 1)
     {
         renderCountries(country);
     }
