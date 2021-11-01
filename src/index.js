@@ -25,20 +25,19 @@ function renderCountries(country) {
 function onInput(e) {
     const input = e.target.value;
     clearMarkup();
-    if(input){
+    if(input != ""){
     fetchCountries(input)
-        .then(renderCountryCard)
-        .catch(error => {alert('here is no such country')})
+        .then((country) => renderCountryCard(country))
+        .catch((error) => {alert(error)})
 }}
 function renderCountryCard(country) {
     if (country.length === 1) {
         renderCountry(...country)
     }
-    else (country.length > 1)
-    {
+    else if (country.length > 1) {
         renderCountries(country);
     }
-
+     else { throw "Сountry does not exist"; }
 }
 function clearMarkup() {
     refs.cardContainer.innerHTML = "";
