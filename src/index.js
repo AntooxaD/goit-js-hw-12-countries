@@ -5,6 +5,7 @@ const debounce = require('lodash.debounce');
 import fetchCountries from './js/fetchCountries';
 import countryCard from './templates/country.hbs';
 import countriesCard from './templates/countries.hbs';
+import { alert } from '../node_modules/@pnotify/core';
 
 const refs = {
     input: document.querySelector('#country-search-input'),
@@ -23,7 +24,7 @@ function renderCountries(country) {
 }
 
 function onInput(e) {
-    const input = e.target.value;
+    const input = e.target.value.trim();
     clearMarkup();
     if(input != ""){
     fetchCountries(input)
@@ -34,7 +35,17 @@ function renderCountryCard(country) {
     if (country.length === 1) {
         renderCountry(...country)
     }
-    else if (country.length > 1) {
+    else if (country.length > 10) {
+        alert({ 
+            text: "Too many matches found. Please enter more specific query!",
+            type: 'notice',
+            closer: true,
+            sticker: false,
+            width: '360px',
+            styling: 'brighttheme',
+  });
+    }
+    else if (country.length > 1  && country.length < 10) {
         renderCountries(country);
     }
      else { throw "Сountry does not exist"; }
